@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdLightMode } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
-import { FaCircleUser } from "react-icons/fa6";
-import { LuUserCircle } from "react-icons/lu";
+import Logo from "./Logo";
+
 
 
 
@@ -34,19 +34,7 @@ const Navbar = ({ userRole, isLoggedIn }) => {
           to="/"
           className="flex pt-2 text-xl font-bold hover:text-gray-200"
         >
-          {darkMode ? (
-            <img
-              src="/assets/images/logo-dark.png"
-              alt="Wheely Logo"
-              className="h-12 w-15 mr-2" // Adjust height and width as needed
-            />
-          ) : (
-            <img
-              src="/assets/images/logo-light.png"
-              alt="Wheely Logo"
-              className="h-12 w-15 mr-2" // Adjust height and width as needed
-            />
-          )}
+          <Logo darkMode={darkMode}/>
           <span className="text-3xl mt-1 font-mono font-bold">wheely</span>
         </Link>
 
@@ -62,13 +50,15 @@ const Navbar = ({ userRole, isLoggedIn }) => {
               Services
             </Link>
           </li>
-          {userRole === "customer" && (
+
+          {/* Customer dashboard should be available to anyone */}
+          {/* {userRole === "customer" && ( */}
             <li>
               <Link to="/dashboard/customer"  className={`hover:text-gray-200 ${location.pathname === "/dashboard/customer" ? "underline" : ""}`}>
                 Dashboard
               </Link>
             </li>
-          )}
+          {/* )} */}
           {userRole === "admin" && (
             <>
               <li>
@@ -110,7 +100,11 @@ const Navbar = ({ userRole, isLoggedIn }) => {
           <button className="bg-gray-200 text-blue-600 px-3 py-1 rounded hover:bg-gray-300">
             {isLoggedIn ? (
               <Link to="/logout" className="hover:text-blue-800">
-                 {darkMode ? <FaCircleUser /> : <LuUserCircle/>}
+                 {darkMode ?
+                  <img className="h-10 w-10" src="/assets/images/profile_dark.jpg" alt="profile" />
+                   :
+                   <img className="h-10 w-10" src="/assets/images/profile_light.jpg" alt="profile" />
+                    }
               </Link>
             ) : (
               <Link to="/login" className="hover:text-blue-800">
